@@ -1,0 +1,59 @@
+<div class="w-100 card my-3">
+    <form class="p-4" [formGroup]="formulario!">
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-4">
+                    <label class="form-label" for="Nombre">Nombre</label>
+                    <input type="text" readonly formControlName="nombre" class="form-control form-control-sm"
+                        id="Nombre" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Rut">Rut</label>
+                    <input type="text" readonly formControlName="rut" class="form-control form-control-sm" id="Rut" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Empresa">Empresa</label>
+                    <input type="text" readonly formControlName="empresa" class="form-control form-control-sm"
+                        id="Empresa" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Equipo o Cargo">Equipo o Cargo</label>
+                    <input type="text" readonly formControlName="equipoCargo" class="form-control form-control-sm"
+                        id="Equipo o Cargo" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Resultado evaluación">Resultado evaluación</label>
+                    <input type="text" readonly formControlName="resultadoEvaluacion"
+                        class="form-control form-control-sm" id="Resultado evaluación" />
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mb-4">
+                    <label class="form-label" for="Fecha de certificación">Fecha de certificación</label>
+                    <input type="text" readonly formControlName="fechaCertificacion"
+                        class="form-control form-control-sm" id="Fecha de certificación" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Fecha de expiración">Fecha de expiración</label>
+
+                    <input type="text" readonly formControlName="fechaExpiracion" class="form-control form-control-sm"
+                        id="Fecha de expiración" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Nota final">Nota final</label>
+                    <input type="text" readonly formControlName="notaFinal" class="form-control" id="Nota final" />
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="Codigo">Codigo</label>
+                    <input type="text" readonly formControlName="codigo" class="form-control form-control-sm"
+                        id="Codigo" />
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="file" class="form-control" />
+        </div>
+
+    </form>
+</div>

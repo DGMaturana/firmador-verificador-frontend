@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-header">
+        <div class="h1">Firmar app-firmar-registros-form</div>
+    </div>
+
+    <form class="card-body">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeNavItem"> 
+            <li [ngbNavItem]="1">
+                <button ngbNavLink>
+                    Subida de Excel
+                </button>
+                <ng-template ngbNavContent>
+                    <app-excel-upload [estanCargadosRegistros]="estanCargadosRegistros" (onObtenerRegistros)="onObtenerRegistros($event)"></app-excel-upload>   
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <button class="" ngbNavLink>
+                    Registros a cargar
+                </button>
+                <ng-template ngbNavContent>
+                    <app-registros *ngIf="registros; else noRegistros" [registros]="registros"></app-registros>
+                    <ng-template #noRegistros>
+                        <div class="mt-4 mx-2 alert alert-warning">
+                            <h3>
+                                Por favor suba excel con registros.
+                            </h3>
+                        </div>
+                    </ng-template>
+                    
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+
+</div>
