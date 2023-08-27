@@ -3,7 +3,7 @@
         <div class="h1">Firmar app-firmar-registros-form</div>
     </div>
 
-    <form class="card-body">
+    <form class="card-body" [formGroup]="formularioRegistros" *ngIf="formularioRegistros">
         <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeNavItem"> 
             <li [ngbNavItem]="1">
                 <button ngbNavLink>
@@ -18,7 +18,10 @@
                     Registros a cargar
                 </button>
                 <ng-template ngbNavContent>
-                    <app-registros *ngIf="registros; else noRegistros" [registros]="registros"></app-registros>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-primary mr-4" (click)="firmar()">Firmar Archivos</button>
+                    </div>
+                    <app-registros *ngIf="registros; else noRegistros" [registros]="registros" [formularioRegistros]="formularioRegistros" (onFileChangeEvent)="onFileChangeEvent($event)"></app-registros>
                     <ng-template #noRegistros>
                         <div class="mt-4 mx-2 alert alert-warning">
                             <h3>

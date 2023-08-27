@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Registro } from 'src/app/components/registros/Registro';
 
 @Component({
@@ -24,14 +24,69 @@ export class FirmarComponent {
 
   initForm(){
     this.formularioRegistros = this.fb.group({
-
+      registros: this.fb.array([])
     })
   }
 
-  onObtenerRegistros(registros: Registro[]){
-    this.registros = registros;
+  addRegistro(registro: Registro){
+    if(!registro) return;
+    const { NOMBRE, RUT, CODIGO, EMPRESA, EQUIPO_O_CARGO, FECHA_CERTIFICACION, FECHA_EXPIRACION, NOTA_FINAL, RESULTADO_EVALUACION, certificado} = registro;
+
+    const registroForm = this.fb.group({
+      nombre: [NOMBRE || ''],
+      rut: [RUT ],
+      codigo: [CODIGO],
+      empresa: [EMPRESA],
+      equipoCargo: [EQUIPO_O_CARGO],
+      fechaCertificacion: [FECHA_CERTIFICACION],
+      fechaExpiracion: [FECHA_EXPIRACION],
+      notaFinal: [NOTA_FINAL],
+      resultadoEvaluacion: [RESULTADO_EVALUACION],
+      certificado: [certificado || null]
+    })
+
+    const registrosControl = this.formularioRegistros?.controls['registros'] as FormArray;
+    registrosControl.push(registroForm)
   }
-  estan(){
-    console.log(this.estanCargadosRegistros);
+  
+  onObtenerRegistros(registros: Registro[]){
+    if(!registros) throw 'No se obtuvieron registros.'
+    this.registros = registros;
+    
+    for( const registro of registros ){
+      this.addRegistro(registro);
+    }
+
+    this.activeNavItem = 2;
+  }
+
+  firmar(){
+    console.log(this.formularioRegistros?.value)
+  }
+
+  onFileChangeEvent($event: any){
+    const newRegistro = $event.registro;
+    const { NOMBRE, RUT, CODIGO, EMPRESA, EQUIPO_O_CARGO, FECHA_CERTIFICACION, FECHA_EXPIRACION, NOTA_FINAL, RESULTADO_EVALUACION, certificado} = newRegistro;
+    if(!certificado){
+      throw ('Error, no hay certificado.')
+    } 
+    const registroForm = this.fb.group({
+      nombre: [NOMBRE || ''],
+      rut: [RUT ],
+      codigo: [CODIGO],
+      empresa: [EMPRESA],
+      equipoCargo: [EQUIPO_O_CARGO],
+      fechaCertificacion: [FECHA_CERTIFICACION],
+      fechaExpiracion: [FECHA_EXPIRACION],
+      notaFinal: [NOTA_FINAL],
+      resultadoEvaluacion: [RESULTADO_EVALUACION],
+      certificado: [certificado || null]
+    })
+    const registros = this.formularioRegistros?.get('registros') as FormArray;
+    const registro = registros.at($event.index)
+
+    registro.setValue(registroForm.value)
+  
+    
   }
 }

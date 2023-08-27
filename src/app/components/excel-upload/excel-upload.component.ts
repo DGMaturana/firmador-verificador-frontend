@@ -18,7 +18,6 @@ export class ExcelUploadComponent {
 
   async obtenerRegistros(event: any){
     try{
-      console.log('hola!')
       if(event.target.files && event.target.files.length){
         const file = event.target?.files[0];
       
@@ -26,14 +25,12 @@ export class ExcelUploadComponent {
         if(registros){
           this.onObtenerRegistros.emit(registros)
         }
-        console.log(registros)
 
       }
 
     }catch(error){
       throw error;
     }
-    // this.registroService.obtenerRegistros()
   }
 
 

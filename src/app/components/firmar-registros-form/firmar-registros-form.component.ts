@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RegistrosService } from 'src/app/services/registros.service';
 import { Registro } from '../registros/Registro';
@@ -11,16 +11,18 @@ import { Registro } from '../registros/Registro';
 export class FirmarRegistrosFormComponent implements OnInit {
 
   @Input() registro?: Registro;
+  @Input() formularioRegistros? : FormGroup;
+  @Input() index?: number;
+  @Output() onFileChangeEvent = new EventEmitter()
   formulario: FormGroup | undefined;
 
   constructor(private fb: FormBuilder,
-              private registrosService: RegistrosService          
+              private registrosService: RegistrosService,
     ){
 
   }
-  ngOnInit(): void {
-    console.log(('hola mundo'));
 
+  ngOnInit(): void {
     this.initForm();
   }
 
@@ -29,12 +31,10 @@ export class FirmarRegistrosFormComponent implements OnInit {
       return;
     }
     
-    const {NOMBRE, RUT, EMPRESA, EQUIPO_O_CARGO, FECHA_CERTIFICACION, RESULTADO_EVALUACION, FECHA_EXPIRACION, NOTA_FINAL, CODIGO } = this.registro
+    const {NOMBRE, RUT, EMPRESA, EQUIPO_O_CARGO, FECHA_CERTIFICACION, RESULTADO_EVALUACION, FECHA_EXPIRACION, NOTA_FINAL, CODIGO, certificado } = this.registro
     if(!FECHA_CERTIFICACION){
       return;
     }
-    // const fechaCertificacion = FECHA_CERTIFICACION.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).split(' ').join('-');
-    // console.log(fechaCertificacion)
      this.formulario = this.fb.group({
       nombre: [ NOMBRE || ''],
       rut: [ RUT || ''],
@@ -44,12 +44,27 @@ export class FirmarRegistrosFormComponent implements OnInit {
       resultadoEvaluacion:[ RESULTADO_EVALUACION || ''],
       fechaExpiracion:[ FECHA_EXPIRACION || ''],
       notaFinal: [ NOTA_FINAL || ''],
-      codigo:[ CODIGO || '']
+      codigo:[ CODIGO || ''],
+      certificado: [certificado || '']
       
      })
   }
 
-  obtenerRegistros(){
-    this.registrosService.obtenerRegistros({})
+  onFileChange(event: any){
+    try{
+      const file = (event?.target?.files[0]) ;
+
+      this.registro!.certificado = file;
+      const registro =  this.formulario?.value
+
+      this.onFileChangeEvent.emit(registro)
+
+      
+
+    }catch(error){
+      console.log(error)
+      throw error;
+    }
   }
+
 }

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Registro } from './Registro';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-registros',
@@ -8,9 +9,19 @@ import { Registro } from './Registro';
 })
 export class RegistrosComponent {
   @Input() registros?: Registro[]
+  @Input() formularioRegistros?: FormGroup;
+  @Output() onFileChangeEvent = new EventEmitter()
 
   constructor(){
     
+  }
+
+  onFileChange(registro: any, index: number){
+    const registroConCertificado = {
+      registro,
+      index
+    }
+    this.onFileChangeEvent.emit(registroConCertificado);
   }
 
 }

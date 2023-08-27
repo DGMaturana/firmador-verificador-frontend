@@ -8,4 +8,5 @@ export interface Registro {
     FECHA_EXPIRACION: Date | null;
     NOTA_FINAL: string;
     CODIGO: string;
+    certificado? : any
   }

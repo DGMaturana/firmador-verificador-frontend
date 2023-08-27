@@ -1,4 +1,3 @@
 <div *ngIf="registros">
-
-    <app-firmar-registros-form *ngFor="let registro of registros" [registro]="registro"></app-firmar-registros-form>
+    <app-firmar-registros-form *ngFor="let registro of registros; let i = index" [registro]="registro" [formularioRegistros]="formularioRegistros || undefined" (onFileChangeEvent)="onFileChange(registro, i)" [index]="i" ></app-firmar-registros-form>
 </div> 
