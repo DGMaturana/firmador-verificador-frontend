@@ -16,7 +16,24 @@ export class RegistrosService {
     async obtenerRegistros(archivo: any){
       const formData = new FormData();
       formData.append('sheet', archivo);
+      console.log(...formData.getAll('sheet'));
       return lastValueFrom(this.http.post<RegistrosResponse>(`${this.apiURL}/api/upload`, formData))
+    }
+
+    async firmarRegistros(registros: Registro[]){
+      const formData = new FormData();
+      formData.append('registros', JSON.stringify(registros) )
+    
+      const certificados = registros.map(registro => registro.certificado);
+
+      for (const certificado of certificados ){
+        formData.append('files', certificado)
+      } 
+    
+
+      return lastValueFrom(this.http.post(`${this.apiURL}/api/registros`, formData));
+    
+
     }
 
 

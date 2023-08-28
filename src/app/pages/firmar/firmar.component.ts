@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Registro } from 'src/app/components/registros/Registro';
+import { RegistrosService } from 'src/app/services/registros.service';
 
 @Component({
   selector: 'app-firmar',
@@ -14,7 +15,8 @@ export class FirmarComponent {
 
   estanCargadosRegistros: boolean = false;
   formularioRegistros?: FormGroup; 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder,
+              private registrosService: RegistrosService){
 
   }
 
@@ -60,8 +62,10 @@ export class FirmarComponent {
     this.activeNavItem = 2;
   }
 
-  firmar(){
+  async firmar(){
     console.log(this.formularioRegistros?.value)
+    const respuesta = await this.registrosService.firmarRegistros(this.formularioRegistros?.value.registros);
+    console.log(respuesta)
   }
 
   onFileChangeEvent($event: any){
