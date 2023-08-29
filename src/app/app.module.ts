@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ExcelUploadComponent } from './components/excel-upload/excel-upload.component';
 import { FirmarComponent } from './pages/firmar/firmar.component';
 import { RegistrosComponent } from './components/registros/registros.component';
+import { DescargarCertificadosComponent } from './components/descargar-certificados/descargar-certificados.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RegistrosComponent } from './components/registros/registros.component';
     FirmarRegistrosFormComponent,
     ExcelUploadComponent,
     FirmarComponent,
-    RegistrosComponent
+    RegistrosComponent,
+    DescargarCertificadosComponent
   ],
   imports: [
     BrowserModule,

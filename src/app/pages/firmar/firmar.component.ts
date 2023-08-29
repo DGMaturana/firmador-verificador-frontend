@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Registro } from 'src/app/components/registros/Registro';
 import { RegistrosService } from 'src/app/services/registros.service';
+import { DescargarCertificadosComponent } from '../../components/descargar-certificados/descargar-certificados.component';
 
 @Component({
   selector: 'app-firmar',
@@ -16,7 +18,9 @@ export class FirmarComponent {
   estanCargadosRegistros: boolean = false;
   formularioRegistros?: FormGroup; 
   constructor(private fb: FormBuilder,
-              private registrosService: RegistrosService){
+              private registrosService: RegistrosService,
+              private modalService: NgbModal
+              ){
 
   }
 
@@ -63,9 +67,20 @@ export class FirmarComponent {
   }
 
   async firmar(){
-    console.log(this.formularioRegistros?.value)
-    const respuesta = await this.registrosService.firmarRegistros(this.formularioRegistros?.value.registros);
-    console.log(respuesta)
+    try {
+      console.log(this.formularioRegistros?.value)
+      const respuesta = await this.registrosService.firmarRegistros(this.formularioRegistros?.value.registros);
+      const {done, registros} = respuesta;
+      if(!done){
+        throw ('No se obtuvieron registros certificados.');
+      }
+
+      const modal = this.modalService.open(DescargarCertificadosComponent);
+      modal.componentInstance.registros = registros;
+          
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   onFileChangeEvent($event: any){

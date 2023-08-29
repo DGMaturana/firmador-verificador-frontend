@@ -31,9 +31,13 @@ export class RegistrosService {
       } 
     
 
-      return lastValueFrom(this.http.post(`${this.apiURL}/api/registros`, formData));
+      return lastValueFrom(this.http.post<FirmaResponse>(`${this.apiURL}/api/registros`, formData));
     
 
+    }
+
+    descargarPDF(certificado: string){
+      return this.http.get(`${this.apiURL}/api/registros/${certificado}`, { responseType: 'blob'})
     }
 
 
@@ -44,5 +48,10 @@ export class RegistrosService {
 
 interface RegistrosResponse {
   registros: Registro[];
+}
+
+interface FirmaResponse {
+  done      : boolean;
+  registros : Registro[];
 }
 

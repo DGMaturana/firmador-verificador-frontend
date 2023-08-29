@@ -1,0 +1,7 @@
+<h2>Descarga de certificados</h2>
+
+<div *ngFor="let registro of registros">
+
+    <button type="button" class="btn btn-link" *ngIf="registro.certificado" (click)="onDownloadClick(registro.certificado)">{{registro.certificado}}</button>
+
+</div>
