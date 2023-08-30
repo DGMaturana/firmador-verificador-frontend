@@ -11,6 +11,8 @@ import { ExcelUploadComponent } from './components/excel-upload/excel-upload.com
 import { FirmarComponent } from './pages/firmar/firmar.component';
 import { RegistrosComponent } from './components/registros/registros.component';
 import { DescargarCertificadosComponent } from './components/descargar-certificados/descargar-certificados.component';
+import { VerificarComponent } from './components/pages/verificar/verificar.component';
+import { VerificarRegistrosComponent } from './components/verificar-registros/verificar-registros.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { DescargarCertificadosComponent } from './components/descargar-certifica
     ExcelUploadComponent,
     FirmarComponent,
     RegistrosComponent,
-    DescargarCertificadosComponent
+    DescargarCertificadosComponent,
+    VerificarComponent,
+    VerificarRegistrosComponent
   ],
   imports: [
     BrowserModule,
