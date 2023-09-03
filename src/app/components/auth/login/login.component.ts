@@ -20,8 +20,8 @@ export class LoginComponent {
 
   ngOnInit(){
     this.formulario = this.fb.group({
-      correo: ['admin@admin.cl', Validators.required],
-      password: ['4dm1n2023', Validators.required]
+      correo: ['', Validators.required],
+      password: ['', Validators.required]
     })
   }
 
