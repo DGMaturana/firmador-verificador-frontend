@@ -1,0 +1,12 @@
+.navbar{
+    /* height: 2em; */
+    height: 7rem;
+}
+
+.logo{
+    /* height:5em; */
+    text-align: center;
+    justify-self: center;
+    position: relative;
+    z-index: 2;
+}

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Registro } from '../registros/Registro';
 import { RegistrosService } from 'src/app/services/registros.service';
-import { saveAs } from "file-saver"
+import { saveAs } from "file-saver-es"
 
 @Component({
   selector: 'app-descargar-certificados',

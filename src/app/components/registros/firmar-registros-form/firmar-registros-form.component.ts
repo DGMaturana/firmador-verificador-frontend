@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RegistrosService } from 'src/app/services/registros.service';
-import { Registro } from '../registros/Registro';
+import { Registro } from '../Registro';
 
 @Component({
   selector: 'app-firmar-registros-form',
@@ -31,20 +31,20 @@ export class FirmarRegistrosFormComponent implements OnInit {
       return;
     }
     
-    const {NOMBRE, RUT, EMPRESA, EQUIPO_O_CARGO, FECHA_CERTIFICACION, RESULTADO_EVALUACION, FECHA_EXPIRACION, NOTA_FINAL, CODIGO, certificado } = this.registro
-    if(!FECHA_CERTIFICACION){
+    const {nombre, rut, empresa, equipoCargo, fechaCertificacion, resultadoEvaluacion, fechaExpiracion, notaFinal, codigo, certificado } = this.registro
+    if(!fechaCertificacion){
       return;
     }
      this.formulario = this.fb.group({
-      nombre: [ NOMBRE || ''],
-      rut: [ RUT || ''],
-      empresa: [ EMPRESA || '' ],
-      equipoCargo: [ EQUIPO_O_CARGO || '' ],
-      fechaCertificacion: [ FECHA_CERTIFICACION || '' ],
-      resultadoEvaluacion:[ RESULTADO_EVALUACION || ''],
-      fechaExpiracion:[ FECHA_EXPIRACION || ''],
-      notaFinal: [ NOTA_FINAL || ''],
-      codigo:[ CODIGO || ''],
+      nombre: [ nombre || ''],
+      rut: [ rut || ''],
+      empresa: [ empresa || '' ],
+      equipoCargo: [ equipoCargo || '' ],
+      fechaCertificacion: [ fechaCertificacion || '' ],
+      resultadoEvaluacion:[ resultadoEvaluacion || ''],
+      fechaExpiracion:[ fechaExpiracion || ''],
+      notaFinal: [ notaFinal || ''],
+      codigo:[ codigo || ''],
       certificado: [certificado || '']
       
      })

@@ -1,10 +1,11 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, computed, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Registro } from 'src/app/components/registros/Registro';
 import { RegistrosService } from 'src/app/services/registros.service';
 import { DescargarCertificadosComponent } from '../../components/descargar-certificados/descargar-certificados.component';
-
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-firmar',
   templateUrl: './firmar.component.html',
@@ -14,6 +15,10 @@ export class FirmarComponent {
   activeNavItem: number = 1;
 
   registros?: Registro[];
+
+  private authService = inject( AuthService );
+
+  public user = computed(() => this.authService.currentUser() );
 
   estanCargadosRegistros: boolean = false;
   formularioRegistros?: FormGroup; 
@@ -36,18 +41,18 @@ export class FirmarComponent {
 
   addRegistro(registro: Registro){
     if(!registro) return;
-    const { NOMBRE, RUT, CODIGO, EMPRESA, EQUIPO_O_CARGO, FECHA_CERTIFICACION, FECHA_EXPIRACION, NOTA_FINAL, RESULTADO_EVALUACION, certificado} = registro;
+    const {nombre, rut, empresa, equipoCargo, fechaCertificacion, resultadoEvaluacion, fechaExpiracion, notaFinal, codigo, certificado }  = registro;
 
     const registroForm = this.fb.group({
-      nombre: [NOMBRE || ''],
-      rut: [RUT ],
-      codigo: [CODIGO],
-      empresa: [EMPRESA],
-      equipoCargo: [EQUIPO_O_CARGO],
-      fechaCertificacion: [FECHA_CERTIFICACION],
-      fechaExpiracion: [FECHA_EXPIRACION],
-      notaFinal: [NOTA_FINAL],
-      resultadoEvaluacion: [RESULTADO_EVALUACION],
+      nombre: [nombre || ''],
+      rut: [rut || ''  ],
+      codigo: [codigo || '' ],
+      empresa: [empresa || '' ],
+      equipoCargo: [equipoCargo || '' ],
+      fechaCertificacion: [fechaCertificacion || '' ],
+      fechaExpiracion: [fechaExpiracion || '' ],
+      notaFinal: [notaFinal || ''],
+      resultadoEvaluacion: [resultadoEvaluacion || '' ],
       certificado: [certificado || null]
     })
 
@@ -68,8 +73,12 @@ export class FirmarComponent {
 
   async firmar(){
     try {
-      console.log(this.formularioRegistros?.value)
+
+
       const respuesta = await this.registrosService.firmarRegistros(this.formularioRegistros?.value.registros);
+      if(!respuesta){
+        throw ('No se obtuvo respuesta desde el servidor');
+      }
       const {done, registros} = respuesta;
       if(!done){
         throw ('No se obtuvieron registros certificados.');
@@ -78,27 +87,28 @@ export class FirmarComponent {
       const modal = this.modalService.open(DescargarCertificadosComponent);
       modal.componentInstance.registros = registros;
           
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error)
+      Swal.fire('Atención', error?.error?.msg || '', 'warning')
     }
   }
 
   onFileChangeEvent($event: any){
     const newRegistro = $event.registro;
-    const { NOMBRE, RUT, CODIGO, EMPRESA, EQUIPO_O_CARGO, FECHA_CERTIFICACION, FECHA_EXPIRACION, NOTA_FINAL, RESULTADO_EVALUACION, certificado} = newRegistro;
+    const {nombre, rut, empresa, equipoCargo, fechaCertificacion, resultadoEvaluacion, fechaExpiracion, notaFinal, codigo, certificado }  = newRegistro;
     if(!certificado){
       throw ('Error, no hay certificado.')
     } 
     const registroForm = this.fb.group({
-      nombre: [NOMBRE || ''],
-      rut: [RUT ],
-      codigo: [CODIGO],
-      empresa: [EMPRESA],
-      equipoCargo: [EQUIPO_O_CARGO],
-      fechaCertificacion: [FECHA_CERTIFICACION],
-      fechaExpiracion: [FECHA_EXPIRACION],
-      notaFinal: [NOTA_FINAL],
-      resultadoEvaluacion: [RESULTADO_EVALUACION],
+      nombre: [nombre || ''],
+      rut: [rut || ''  ],
+      codigo: [codigo || '' ],
+      empresa: [empresa || '' ],
+      equipoCargo: [equipoCargo || '' ],
+      fechaCertificacion: [fechaCertificacion || '' ],
+      fechaExpiracion: [fechaExpiracion || '' ],
+      notaFinal: [notaFinal || ''],
+      resultadoEvaluacion: [resultadoEvaluacion || '' ],
       certificado: [certificado || null]
     })
     const registros = this.formularioRegistros?.get('registros') as FormArray;

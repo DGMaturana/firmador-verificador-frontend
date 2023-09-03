@@ -1,0 +1,18 @@
+<div class="contianer d-flex justify-content-center my-5 ">
+    <div class="row justify-content-center w-auto shadow rounded p-4 rounded">
+        <form class="form-group py-2" [formGroup]="formulario!" (submit)="login()">
+            <div class="mb-2">
+                <label class="form-label">Email</label>
+                <input class="form-control" formControlName="correo" type="correo" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Password</label>
+                <input class="form-control" formControlName="password" type="password" />
+            </div>
+            <button class="btn btn-primary float-end mt-3">
+                Iniciar Sesión
+            </button>
+        </form>
+
+    </div>
+</div>

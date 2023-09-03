@@ -1,12 +1,12 @@
 export interface Registro {
-    NOMBRE: string;
-    RUT: string;
-    EMPRESA: string;
-    EQUIPO_O_CARGO: string;
-    RESULTADO_EVALUACION: string;
-    FECHA_CERTIFICACION: Date | null; 
-    FECHA_EXPIRACION: Date | null;
-    NOTA_FINAL: string;
-    CODIGO: string;
-    certificado? : any
-  }
+  nombre: string;
+  rut: string;
+  empresa: string;
+  equipoCargo: string;
+  resultadoEvaluacion: string;
+  fechaCertificacion: Date | null; 
+  fechaExpiracion: Date | null;
+  notaFinal: string;
+  codigo: string;
+  certificado: any;
+}

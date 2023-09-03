@@ -1,0 +1,91 @@
+<div (click)="onCloseClick()">
+    <fa-icon [icon]="close" class="close-icon"></fa-icon>
+
+</div>
+
+<div *ngIf="registro" class="container pb-5">
+
+
+    <h2 class="text-center my-4">Certificado emitido</h2>
+    <div class="div pt-4">
+
+        <div class="row px-4">
+            <div class="col-4 fw-bold text-justified">
+                    Nombre:
+            </div>
+            <div class="col-8">
+                <p>{{registro.nombre | titlecase }}</p>
+            </div>
+        </div>
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Rut:
+            </div>
+            <div class="col-8">
+                <p>{{registro.rut | titlecase }}</p>
+            </div>
+        </div>
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Resultado Evaluación:
+            </div>
+            <div class="col-8">
+                <span
+                    [ngClass]="registro.resultadoEvaluacion === 'APROBADO' ? 'badge bg-success text-light' : 'badge bg-danger text-light'"
+                   >
+                    {{registro.resultadoEvaluacion }}
+
+                </span>
+            </div>
+        </div>
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Empresa:
+            </div>
+            <div class="col-8">
+                <p>{{registro.empresa | titlecase }}</p>
+            </div>
+        </div>
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Register N°:
+            </div>
+            <div class="col-8">
+                <p>{{registro.codigo | titlecase }}</p>
+            </div>
+        </div>
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Fecha de certificación:
+            </div>
+            <div class="col-8">
+                <p>{{registro.fechaCertificacion | date: 'dd-MMM-y' }}</p>
+            </div>
+        </div>
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Fecha de expiración:
+            </div>
+            <div class="col-8">
+                <p>{{registro.fechaExpiracion | date: 'dd-MMM-y' }}</p>
+            </div>
+        </div>
+
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Equipo / Cargo:
+            </div>
+            <div class="col-8">
+                <p>{{registro.equipoCargo | titlecase }}</p>
+            </div>
+        </div>
+        <div class="row px-4">
+            <div class="col-4 fw-bold">
+                Nota Final:
+            </div>
+            <div class="col-8">
+                <p>{{registro.notaFinal | number: '1.1-1' }}</p>
+            </div>
+        </div>
+    </div>
+</div>

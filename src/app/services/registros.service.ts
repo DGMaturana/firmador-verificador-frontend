@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { enviroment } from 'src/enviroments/enviroment';
 import { lastValueFrom } from 'rxjs';
 import { Registro } from '../components/registros/Registro';
@@ -8,30 +8,35 @@ import { Registro } from '../components/registros/Registro';
 })
 export class RegistrosService {
   private apiURL: string = enviroment.apiURL;
+  private http = inject( HttpClient );
 
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
-
     async obtenerRegistros(archivo: any){
       const formData = new FormData();
       formData.append('sheet', archivo);
-      console.log(...formData.getAll('sheet'));
       return lastValueFrom(this.http.post<RegistrosResponse>(`${this.apiURL}/api/upload`, formData))
     }
 
     async firmarRegistros(registros: Registro[]){
+      const token = localStorage.getItem('token');
+      if(!token) {
+        return;
+      }
       const formData = new FormData();
+
       formData.append('registros', JSON.stringify(registros) )
-    
+
+      const headers = new HttpHeaders().set('Authorization', token)
+
       const certificados = registros.map(registro => registro.certificado);
 
       for (const certificado of certificados ){
         formData.append('files', certificado)
       } 
     
-
-      return lastValueFrom(this.http.post<FirmaResponse>(`${this.apiURL}/api/registros`, formData));
+      return lastValueFrom(this.http.post<FirmaResponse>(`${this.apiURL}/api/registros`,  formData,  {headers}));
     
 
     }
@@ -40,18 +45,28 @@ export class RegistrosService {
       return this.http.get(`${this.apiURL}/api/registros/${certificado}`, { responseType: 'blob'})
     }
 
+    verificarRegistro(codigo: string){
+      return lastValueFrom(this.http.get<VerificarResponse>(`${this.apiURL}/api/registros/verificar/${codigo}`))
+    }
 
     
-
    
 }
 
-interface RegistrosResponse {
+
+interface RegistrosResponse extends ApiResponse {
   registros: Registro[];
 }
 
-interface FirmaResponse {
-  done      : boolean;
+interface FirmaResponse extends ApiResponse {
   registros : Registro[];
 }
 
+interface VerificarResponse extends ApiResponse{ 
+  registro: Registro;
+}
+
+interface ApiResponse {
+  done: boolean; 
+  error?: string;
+}

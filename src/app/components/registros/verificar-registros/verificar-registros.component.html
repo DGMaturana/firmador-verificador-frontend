@@ -1,0 +1,20 @@
+<div class="container py-5">
+    <div class="row align-items-center shadow border rounded p-5">
+        <form class="form-group text-center" [formGroup]="form!" (ngSubmit)="verificar()">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <h4>Ingrese el código de verificación</h4>
+                    <input id="codigo" class="form-control my-4" formControlName="codigo" type="text" />
+                    <button *ngIf="!loading" class="btn btn-primary" type="button"
+                        (click)="verificar()">Verificar</button>
+                    <div *ngIf="loading" class="spinner-border" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
