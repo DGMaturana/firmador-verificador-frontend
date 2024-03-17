@@ -1,4 +1,4 @@
-<div class="mt-4 mx-2">
-    <h2>Carga de Excel</h2>
-    <input type="file" class="form-control" (change)="obtenerRegistros($event)" />
+<div class=" px-4">
+    <h2 class="mb-3">Subir archivo Excel </h2>
+    <input type="file" class="form-control" (change)="onChange($event)" accept=".xlsx" [disabled]="loading"/>
 </div>

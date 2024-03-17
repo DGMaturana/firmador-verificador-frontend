@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule} from "@angular/common/http"
+import { HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http"
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FirmarRegistrosComponent } from './pages/firmar-registros/firmar-registros.component';
@@ -19,6 +19,16 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { LoginPageComponent } from './pages/auth/login/login.component';
+import { GenerarCertificadosComponent } from './pages/generar-certificados/generar-certificados.component';
+import { GenerarCertificadosFormComponent } from './components/generar-certificados-form/generar-certificados-form.component';
+import { BlobErrorHttpInterceptorService } from './services/blob-error-http-interceptor.service';
+import { ListarCertificadosComponent } from './components/generacion-de-certificados/listar-certificados/listar-certificados.component';
+import { VerCertificadoComponent } from './components/certificados/ver-certificado/ver-certificado.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LayoutComponent } from './components/shared/layout/layout.component';
+import { AdminLayoutComponent } from './components/shared/admin-layout/admin-layout.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +45,16 @@ import { LoginPageComponent } from './pages/auth/login/login.component';
     HeaderComponent,
     PageNotFoundComponent,
     LoginComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    GenerarCertificadosComponent,
+    GenerarCertificadosFormComponent,
+    ListarCertificadosComponent,
+    VerCertificadoComponent,
+    LoadingComponent,
+    SidebarComponent,
+    DashboardComponent,
+    LayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     AppRoutingModule,
@@ -45,7 +64,11 @@ import { LoginPageComponent } from './pages/auth/login/login.component';
     NgbModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: BlobErrorHttpInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

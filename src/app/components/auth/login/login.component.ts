@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   formulario?: FormGroup;
+  loading: boolean = false;
   private router = inject( Router )
   private authService = inject(AuthService)
 
@@ -26,17 +27,20 @@ export class LoginComponent {
   }
 
    login(){
+    this.loading = true;
     const { correo, password } = this.formulario?.value;
     try {
-     this.authService.login(correo, password).subscribe(
-      {
-      next: () => this.router.navigateByUrl('/firmar-registros'),
-      error: (message) => {
-        Swal.fire('Error', message, 'error' )
-      }
+      this.authService.login(correo, password).subscribe(
+        {
+          next: () => this.router.navigateByUrl('/firmar-registros'),
+          error: (message) => {
+            Swal.fire('Error', message, 'error' )
+            this.loading = false;
+          }
     })
       
     } catch (error) {
+      this.loading = false;
       Swal.fire('Atención', String(error), 'warning')
     }
   }
