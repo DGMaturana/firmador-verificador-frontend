@@ -32,7 +32,6 @@ export class AuthService {
   }
 
   private setAuthentication(user: Usuario, token: string): boolean {
-    console.log("set authentication")
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
     localStorage.setItem('token', token);
@@ -61,7 +60,6 @@ export class AuthService {
     .pipe(
       map( ({ usuario, token }) => this.setAuthentication( usuario, token )),
       catchError((err) => {
-        console.log(err)
         this._authStatus.set( AuthStatus.notAuthenticated );
         return of(false);
       })

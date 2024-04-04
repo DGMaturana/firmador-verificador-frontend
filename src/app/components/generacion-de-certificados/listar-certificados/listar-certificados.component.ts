@@ -26,8 +26,6 @@ export class ListarCertificadosComponent {
   }
 
   toggleHidden(index: number){
-    console.log("toggle hidden");
-    console.log({hidden: this.certificados[index].hidden})
     let hidden = this.certificados[index].hidden 
     if(!hidden){
       this.certificados[index].hidden = true;

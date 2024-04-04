@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -88,7 +88,6 @@ export class FirmarComponent {
       modal.componentInstance.registros = registros;
           
     } catch (error: any) {
-      console.log(error)
       Swal.fire('Atención', error?.error?.msg || '', 'warning')
     }
   }

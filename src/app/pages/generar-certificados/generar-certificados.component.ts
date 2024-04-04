@@ -1,10 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { saveAs } from 'file-saver-es';
 import { CertificadosService } from 'src/app/services/certificados.service';
 import { Certificado } from 'src/interfaces/Certificado';
 import Swal from 'sweetalert2';
-import { map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -24,20 +22,15 @@ export class GenerarCertificadosComponent {
  file?: File;
  loading: boolean = false;
 
- constructor( private certificadoService: CertificadosService,
-              private router: Router ){
+ constructor( private certificadoService: CertificadosService ){
 
  }
 
  onObtenerCertificados(onObtenerCertificados: { certificados: Certificado[], file: File}){
   const { certificados, file } = onObtenerCertificados;
-  console.log("=================================")
-  console.log(" onObtenerCertificados !")
-  console.log("=================================")
   this.activeTab = 2;
   this.certificadosAGenerar = certificados;
   this.file = file;
-  console.log({certificados});
  }
 
  async generarCertificados(generarCertificados: boolean){
@@ -52,7 +45,6 @@ export class GenerarCertificadosComponent {
     
             if(response && response.done){
               throw "Error generando certificados."
-
             }
             if (response) {
               saveAs(response, `certificados-${new Date().toLocaleDateString()}`);
@@ -69,15 +61,12 @@ export class GenerarCertificadosComponent {
             }
             // Swal.fire(, "", "success")
             this.loading = false;
-    
-            console.log(response);
-           
+               
           }
         } catch (error: any) {
-          console.log({ error });
           Swal.fire({
             title: 'Atención',
-            html: error?.message || error?.error?.message || error,
+            html: error?.error?.message || error?.message || error,
             icon: 'warning',
             confirmButtonColor: "#0d6efd",
           }).then((result) => {
@@ -85,10 +74,7 @@ export class GenerarCertificadosComponent {
               window.location.reload();
             }
           });
-
-
         }
-      
     }
  }
 }

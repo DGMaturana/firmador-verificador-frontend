@@ -35,10 +35,6 @@ export class CertificadosService {
 
   async leerCertificados(archivo: File) {
     try {
-      console.log('===================');
-      console.log('Leer certificados');
-      console.log('===================');
-      console.log({ archivo });
 
       const resultadoLectura = await this.leerArchivoSubidoComoArray(archivo);
 
@@ -74,7 +70,6 @@ export class CertificadosService {
       const hoja = utils.sheet_to_json(hojaRegistros, {
         header: headers,
       }) as Certificado[];
-      console.log({ hoja });
       return hoja;
     } catch (error) {
       return null;

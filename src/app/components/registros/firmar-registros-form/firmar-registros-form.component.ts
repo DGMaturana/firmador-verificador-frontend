@@ -62,7 +62,6 @@ export class FirmarRegistrosFormComponent implements OnInit {
       
 
     }catch(error){
-      console.log(error)
       throw error;
     }
   }

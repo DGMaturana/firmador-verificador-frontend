@@ -19,7 +19,7 @@ export interface Certificado {
     municipalidad: string,
     ley: string,
     codigo: string,
-    fechaControl: Date,
+    fechaControl?: Date,
     restricciones: string
     hidden?: boolean;
 }

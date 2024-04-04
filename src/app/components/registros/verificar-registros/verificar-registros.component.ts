@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -45,7 +44,6 @@ export class VerificarRegistrosComponent implements OnInit {
 
   async verificar() {
     try {
-      console.log("verificar! ")
       this.loading = true;
       const codigo: string = this.form?.get('codigo')?.value;
       const codigoDividido = codigo.split('-');
@@ -56,11 +54,9 @@ export class VerificarRegistrosComponent implements OnInit {
       } else {
         tipoCodigo = "registro"
       }
-      console.log({codigo, split: codigo.split('-'), tipoCodigo, firstElement: Number(codigo[0])});
       if(tipoCodigo === "certificado"){
         const respuesta = await this.certificadoService.verificarCertificado(codigo);
         if(!respuesta) throw "Código no válido";
-        console.log({respuesta});
         const { certificado } = respuesta;
         const modal = this.modalService.open(VerCertificadoComponent, {
           size: 'lg',

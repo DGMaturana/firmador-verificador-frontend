@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { RegistrosService } from '../../services/registros.service';
 import { CertificadosService } from 'src/app/services/certificados.service';
 import Swal from 'sweetalert2';
-import { saveAs } from 'file-saver-es'
 import { Certificado } from 'src/interfaces/Certificado';
 @Component({
   selector: 'app-excel-upload',
@@ -23,14 +22,12 @@ export class ExcelUploadComponent {
   ) {}
 
   onChange(event: any) {
-    console.log('ON CHAGE ');
     switch (this.tipoDeArchivo) {
       case 'registros':
         this.obtenerRegistros(event);
         break;
 
       case 'certificados':
-        console.log("case certificados")
         this.leerCertificados(event);
         // this.generarCertificados(event)
         break;
