@@ -24,4 +24,4 @@ export interface Certificado {
     hidden?: boolean;
 }
 
-export type Formato = "FC_CER" | "CR_CAP" | "CR_CER";
+export type Formato = "FC_CER" | "CR_CAP" | "CR_CER" | "JC_CAP" ;
