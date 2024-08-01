@@ -62,7 +62,7 @@
                 <p>{{certificado.fechaCertificacion | date: 'dd-MMM-y' }}</p>
             </div>
         </div>
-        <div class="row px-3 pb-1" *ngIf="certificado.formato === 'CR_CAP' || certificado.formato === 'CR_CER' ">
+        <div class="row px-3 pb-1" *ngIf="certificado.formato === 'CR_CAP' || certificado.formato === 'JC_CAP' || certificado.formato === 'CR_CER' ">
             <div class="col-4 fw-bold">
                 Fecha de capacitación:
             </div>
