@@ -10,11 +10,13 @@ import { Certificado } from 'src/interfaces/Certificado';
   styleUrls: ['./excel-upload.component.css'],
 })
 export class ExcelUploadComponent {
+
   @Input() form?: FormGroup;
-  @Input() tipoDeArchivo?: 'registros' | 'certificados';
+  @Input() tipoDeArchivo?: 'registros' | 'certificados' | 'inspeccion-vehiculos';
   @Input() loading: boolean = false;;
   @Output() onObtenerRegistros = new EventEmitter();
   @Output() onObtenerCertificados: EventEmitter<{certificados: Certificado[], file: File}> = new EventEmitter();
+  @Output() onObtenerInspeccionVehiculos = new EventEmitter();
   allowedExtensions: string[] = ['xls', 'xlsx'];
   constructor(
     private registroService: RegistrosService,
@@ -31,10 +33,17 @@ export class ExcelUploadComponent {
         this.leerCertificados(event);
         // this.generarCertificados(event)
         break;
+
+      case 'inspeccion-vehiculos':
+        this.obtenerInspeccionVehiculos(event);
+        break;
+
       default:
         break;
     }
   }
+
+
 
  async leerCertificados(event: any) {
     try {
@@ -59,6 +68,23 @@ export class ExcelUploadComponent {
         const { registros } = await this.registroService.obtenerRegistros(file);
         if (registros) {
           this.onObtenerRegistros.emit(registros);
+        }
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async obtenerInspeccionVehiculos(event: any) {
+    console.log("obtenerInspeccionVehiculos", event);
+    try {
+      if (event.target.files && event.target.files.length) {
+        const file = event.target?.files[0];
+
+        const {registros } = await this.certificadoService.leerInspeccionVehiculos(file);
+        console.log("registros", registros);
+        if (registros) {
+           this.onObtenerInspeccionVehiculos.emit(registros);
         }
       }
     } catch (error) {

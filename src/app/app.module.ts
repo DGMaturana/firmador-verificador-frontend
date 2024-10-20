@@ -29,6 +29,7 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutComponent } from './components/shared/layout/layout.component';
 import { AdminLayoutComponent } from './components/shared/admin-layout/admin-layout.component';
+import { GenerarInspeccionVehiculosComponent } from './pages/generar-inspeccion-vehiculos/generar-inspeccion-vehiculos.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AdminLayoutComponent } from './components/shared/admin-layout/admin-lay
     SidebarComponent,
     DashboardComponent,
     LayoutComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    GenerarInspeccionVehiculosComponent
   ],
   imports: [
     AppRoutingModule,

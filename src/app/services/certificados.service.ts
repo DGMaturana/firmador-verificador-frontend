@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { enviroment } from 'src/enviroments/enviroment';
-import { Certificado } from 'src/interfaces/Certificado';
+import { Certificado, CertificadoInspeccionVehiculo } from 'src/interfaces/Certificado';
 import { read, utils } from 'xlsx';
 @Injectable({
   providedIn: 'root',
@@ -88,6 +88,62 @@ export class CertificadosService {
       };
       reader.readAsArrayBuffer(archivo);
     });
+  }
+
+  async leerInspeccionVehiculos(archivo: File) {
+    try {
+      const resultadoLectura = await this.leerArchivoSubidoComoArray(archivo);
+
+      const data = new Uint8Array(resultadoLectura as ArrayBuffer);
+      const workbook = read(data, { type: 'array', cellDates: true });
+      const wsNames = workbook.SheetNames;
+      const hojaRegistros = workbook.Sheets[wsNames[0]];
+      const range = utils.decode_range(hojaRegistros['!ref']!);
+      range.s.r = 1; // <-- zero-indexed, so setting to 1 will skip row 0
+      hojaRegistros['!ref'] = utils.encode_range(range);
+    const headers = [
+        "numeroCertificado",
+        "numeroInformeAsociado",
+        "empresaSolicitante",
+        "tipoInspeccion",
+        "producto",
+        "lugarInspeccion",
+        "formato",
+        "tipoEquipo",
+        "marcaEquipo",
+        "modeloEquipo",
+        "marcaPluma",
+        "modeloPluma",
+        "marcaProducto",
+        "modeloProducto",
+        "numeroSerie",
+        "numeroMotorEquipo",
+        "numeroChasisEquipo",
+        "numeroInternoEquipo",
+        "placaPatente",
+        "anoFabricacion",
+        "resultado",
+        "fechaInspeccion",
+        "fechaEmisionCertificado",
+        "fechaVencimientoCertificado"
+    ]
+    const hoja = utils.sheet_to_json(hojaRegistros, {
+      header: headers,
+    }) as CertificadoInspeccionVehiculo[];
+
+    console.log("hoja", hoja);
+    return {
+      registros: hoja,
+    };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  generarCertificadoInspeccionVehiculos( archivo: File ){
+    const formData = new FormData();
+    formData.append('sheet', archivo);
+    return lastValueFrom(this.http.post(`${this.apiURL}/api/upload/generar-certificados-inspeccion-vehiculos`, formData, {responseType: 'blob'}))
   }
 }
 
