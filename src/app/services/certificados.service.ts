@@ -131,7 +131,6 @@ export class CertificadosService {
       header: headers,
     }) as CertificadoInspeccionVehiculo[];
 
-    console.log("hoja", hoja);
     return {
       registros: hoja,
     };
@@ -140,10 +139,18 @@ export class CertificadosService {
     }
   }
 
-  generarCertificadoInspeccionVehiculos( archivo: File ){
+  async generarCertificadoInspeccionVehiculos( archivo: File ): Promise<Blob | any>{
     const formData = new FormData();
     formData.append('sheet', archivo);
-    return lastValueFrom(this.http.post(`${this.apiURL}/api/upload/generar-certificados-inspeccion-vehiculos`, formData, {responseType: 'blob'}))
+    return lastValueFrom(this.http.post(`${this.apiURL}/api/certificados/generar-certificados-inspeccion-vehiculos`, formData, {responseType: 'blob'}))
+  }
+
+  async veritificarCertificadoInspeccionVehiculos(codigo: string){
+    return lastValueFrom(this.http.get<any>(`${this.apiURL}/api/certificados/verificar-inspeccion-vehiculo/${codigo}`))
+  }
+
+  async descargarCertificadoInspeccionEquipo(codigo: string){
+    return lastValueFrom(this.http.get(`${this.apiURL}/api/certificados/descargar-inspeccion-equipo/${codigo}`, {responseType: 'blob'}))
   }
 }
 

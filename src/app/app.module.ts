@@ -30,6 +30,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutComponent } from './components/shared/layout/layout.component';
 import { AdminLayoutComponent } from './components/shared/admin-layout/admin-layout.component';
 import { GenerarInspeccionVehiculosComponent } from './pages/generar-inspeccion-vehiculos/generar-inspeccion-vehiculos.component';
+import { ListarEquiposPorGenerarComponent } from './components/equipos/listar-equipos-por-generar/listar-equipos-por-generar.component';
+import { VerificarCertificadoEquipoComponent } from './components/equipos/verificar-certificado-equipo/verificar-certificado-equipo.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { GenerarInspeccionVehiculosComponent } from './pages/generar-inspeccion-
     DashboardComponent,
     LayoutComponent,
     AdminLayoutComponent,
-    GenerarInspeccionVehiculosComponent
+    GenerarInspeccionVehiculosComponent,
+    ListarEquiposPorGenerarComponent,
+    VerificarCertificadoEquipoComponent
   ],
   imports: [
     AppRoutingModule,

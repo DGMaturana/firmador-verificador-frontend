@@ -1,7 +1,7 @@
 <div class="card bg-light">
     <div class="card-header">
         <h1 class="text-center pt-2">
-            Generar certificados inspección vehículos
+            Generar certificados equipos
         </h1>
     </div>
     <div class="card-body">
@@ -16,13 +16,14 @@
                     </app-excel-upload>
                 </ng-template>
             </li>
-            <li [ngbNavItem]="2" 
+            <li [ngbNavItem]="2" [disabled]="!certificadosAGenerar.length" 
             >
                 <button ngbNavLink>Certificados</button>
                 <ng-template ngbNavContent>
-                    asdf
-                    <!-- <app-listar-certificados [certificados]="certificadosAGenerar" [loading]="loading"
-                        (onGenerarCertificados)="generarCertificados($event)"></app-listar-certificados> -->
+                    <app-listar-equipos-por-generar
+                    [certificados]="certificadosAGenerar"
+                    (onGenerarCertificados)="onGenerarCertificados($event)">
+                    </app-listar-equipos-por-generar>
                 </ng-template>
             </li>
         </ul>

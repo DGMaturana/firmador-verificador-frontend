@@ -12,6 +12,7 @@ import { VerRegistroComponent } from '../ver-registro/ver-registro.component';
 import * as _ from 'underscore';
 import { CertificadosService } from 'src/app/services/certificados.service';
 import { VerCertificadoComponent } from '../../certificados/ver-certificado/ver-certificado.component';
+import { VerificarCertificadoEquipoComponent } from '../../equipos/verificar-certificado-equipo/verificar-certificado-equipo.component';
 @Component({
   selector: 'app-verificar-registros',
   templateUrl: './verificar-registros.component.html',
@@ -54,6 +55,20 @@ export class VerificarRegistrosComponent implements OnInit {
       } else {
         tipoCodigo = "registro"
       }
+      if ( codigoDividido[0].toUpperCase() === "EQU"){
+        tipoCodigo = "equipo";
+      }
+      if(tipoCodigo === "equipo"){
+        const respuesta = await this.certificadoService.veritificarCertificadoInspeccionVehiculos(codigo)
+        if(!respuesta?.certificado) throw "Código no válido";
+        const modal = this.modalService.open(VerificarCertificadoEquipoComponent, {
+          size: 'lg',
+          animation: true
+        });
+        modal.componentInstance.certificadoEquipo = respuesta.certificado;
+        this.loading = false
+        return;
+      }
       if(tipoCodigo === "certificado"){
         const respuesta = await this.certificadoService.verificarCertificado(codigo);
         if(!respuesta) throw "Código no válido";
@@ -81,7 +96,8 @@ export class VerificarRegistrosComponent implements OnInit {
 
 
     } catch (error: any) {
-      Swal.fire({ title: 'Atención', text: error, icon: 'warning', confirmButtonColor: '#0d6efd', showCloseButton: true});
+      const errorMessage = error?.error?.message || error;
+      Swal.fire({ title: 'Atención', text: errorMessage, icon: 'warning', confirmButtonColor: '#0d6efd', showCloseButton: true});
       this.loading = false;
     }
   }

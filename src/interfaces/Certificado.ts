@@ -49,6 +49,9 @@ export interface CertificadoInspeccionVehiculo {
     fechaInspeccion: Date;
     fechaEmisionCertificado: Date;
     fechaVencimientoCertificado: Date;
+    hidden?: boolean;
+    codigo?: string;
+    verificadorCodigo?: number;
 
 }
 
@@ -59,7 +62,8 @@ export enum Formato {
     JuanCarlosCapacitacion   = "JC_CAP",
     CarlosRamosInspeccion    = "CR_INS",
     FelipeRamosInspeccion    = "FR_INS",
-    PedroRiveraInspeccion    = "PR_INS"
+    PedroRiveraInspeccion    = "PR_INS",
+    AMInspeccion             = "AM_INS", 
 }
 
 

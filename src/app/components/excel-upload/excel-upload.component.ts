@@ -76,15 +76,13 @@ export class ExcelUploadComponent {
   }
 
   async obtenerInspeccionVehiculos(event: any) {
-    console.log("obtenerInspeccionVehiculos", event);
     try {
       if (event.target.files && event.target.files.length) {
         const file = event.target?.files[0];
 
         const {registros } = await this.certificadoService.leerInspeccionVehiculos(file);
-        console.log("registros", registros);
         if (registros) {
-           this.onObtenerInspeccionVehiculos.emit(registros);
+           this.onObtenerInspeccionVehiculos.emit({registros, file});
         }
       }
     } catch (error) {
