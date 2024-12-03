@@ -10,6 +10,7 @@ import { GenerarCertificadosComponent  } from './pages/generar-certificados/gene
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { AdminLayoutComponent } from './components/shared/admin-layout/admin-layout.component';
+import { GenerarInspeccionVehiculosComponent } from './pages/generar-inspeccion-vehiculos/generar-inspeccion-vehiculos.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
       {
         path: 'generar-certificados',
         component: GenerarCertificadosComponent,
+        canActivate: [ isAuthenticatedGuard ]
+      },
+      {
+        path: 'generar-inspeccion-vehiculos',
+        component: GenerarInspeccionVehiculosComponent,
         canActivate: [ isAuthenticatedGuard ]
       },
       {

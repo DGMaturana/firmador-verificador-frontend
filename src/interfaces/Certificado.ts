@@ -24,4 +24,46 @@ export interface Certificado {
     hidden?: boolean;
 }
 
-export type Formato = "FC_CER" | "CR_CAP" | "CR_CER" | "JC_CAP" ;
+export interface CertificadoInspeccionVehiculo {
+    numeroCertificado: string;
+    numeroInformeAsociado: string;
+    empresaSolicitante: string;
+    tipoInspeccion: string;
+    producto: string;
+    lugarInspeccion: string;
+    formato: Formato;
+    tipoEquipo: string;
+    marcaEquipo: string;
+    modeloEquipo: string;
+    marcaPluma: string;
+    modeloPluma: string;
+    marcaProducto: string;
+    modeloProducto: string;
+    numeroSerie: string;
+    numeroMotorEquipo: string;
+    numeroChasisEquipo: string;
+    numeroInternoEquipo: string;
+    placaPatente: string;
+    anoFabricacion: string;
+    resultado: | "APROBADO" | "RECHAZADO";
+    fechaInspeccion: Date;
+    fechaEmisionCertificado: Date;
+    fechaVencimientoCertificado: Date;
+    hidden?: boolean;
+    codigo?: string;
+    verificadorCodigo?: number;
+
+}
+
+export enum Formato {
+    FelixConchaCertificacion = "FC_CER", 
+    CarlosRamosCapacitacion  = "CR_CAP", 
+    CarlosRamosCertificacion = "CR_CER", 
+    JuanCarlosCapacitacion   = "JC_CAP",
+    CarlosRamosInspeccion    = "CR_INS",
+    FelipeRamosInspeccion    = "FR_INS",
+    PedroRiveraInspeccion    = "PR_INS",
+    AMInspeccion             = "AM_INS", 
+}
+
+
