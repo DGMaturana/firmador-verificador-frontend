@@ -1,0 +1,14 @@
+.collapseButton {
+    height: 2px;
+    position: relative;
+    top: -12px;
+    color: black;
+}
+.registerCodeInHeader{
+    font-size: 0.7rem;
+    font-weight: normal;
+    margin-top: 2px;    
+}
+.pointer{
+    cursor: pointer
+}

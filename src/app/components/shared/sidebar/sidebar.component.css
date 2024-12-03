@@ -1,0 +1,7 @@
+.active {
+    background-color: #667380 ;
+}
+
+.navitem :hover{
+        background-color: #667380;
+}

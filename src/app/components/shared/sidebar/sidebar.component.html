@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-2 col-lg-2 col-xl-1 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-center pt-2 text-white min-vh-100">
+                <div class="container justify-content-center text-center pt-2">
+                    <a href="#" class="navbar-brand">
+                        <img class="logo" src="/assets/imagenes/cropped-cropped-Based_logo_-1.png" width="100" />
+                    </a>
+                </div>
+                <ul class="collapse show nav flex-column ms-1 text-light pt-5">
+
+                    <li class="navitem mb-2"><a routerLink="/generar-certificados" routerLinkActive="active" ariaCurrentWhenActive="page"
+                            class="nav-link px-2 text-light rounded">Generar Certificados</a></li>
+                    <li class="navitem pb-2">
+                        <a routerLink="/firmar-registros" 
+                           routerLinkActive="active" 
+                           ariaCurrentWhenActive="page"
+                           class="nav-link px-2 text-light rounded"> Firmar Registros 
+                        </a>
+                    </li>
+                    <li class="navitem">
+                        <a routerLink="/generar-inspeccion-vehiculos"
+                           routerLinkActive="active"
+                            ariaCurrentWhenActive="page"
+                            class="nav-link px-2 text-light rounded">Generar Certificado Equipos</a>
+                    </li>
+                </ul>
+
+                <hr>
+
+                <div class="text-center mt-auto mb-3"><button class="btn btn-sm btn-secondary text-center"
+                        (click)="logout()">
+                        Cerrar
+                        Sesión</button></div>
+                <div class="">
+                </div>
+            </div>
+
+        </div>
+        <div class="col p-0">
+            <div class="bg-light">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

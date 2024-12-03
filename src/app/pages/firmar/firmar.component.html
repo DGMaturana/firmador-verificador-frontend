@@ -1,39 +1,44 @@
 <div class="card bg-light">
     <div class="card-header">
-        <h1 class="text-center pt-5">Firmar registros</h1>
+        <h1 class="text-center pt-2">Firmar registros</h1>
     </div>
 
-    <form class="card-body" [formGroup]="formularioRegistros" *ngIf="formularioRegistros">
-        <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeNavItem"> 
-            <li [ngbNavItem]="1">
-                <button ngbNavLink>
-                    Subida de Excel
-                </button>
-                <ng-template ngbNavContent>
-                    <app-excel-upload [estanCargadosRegistros]="estanCargadosRegistros" (onObtenerRegistros)="onObtenerRegistros($event)"></app-excel-upload>   
-                </ng-template>
-            </li>
-            <li [ngbNavItem]="2">
-                <button class="" ngbNavLink>
-                    Registros a cargar
-                </button>
-                <ng-template ngbNavContent>
-                    <div class="d-flex justify-content-end mt-4">
-                        <button type="button" class="btn btn-primary mr-4" (click)="firmar()">Firmar Archivos</button>
-                    </div>
-                    <app-registros *ngIf="registros; else noRegistros" [registros]="registros" [formularioRegistros]="formularioRegistros" (onFileChangeEvent)="onFileChangeEvent($event)"></app-registros>
-                    <ng-template #noRegistros>
-                        <div class="mt-4 mx-2 alert alert-warning">
-                            <h3>
-                                Por favor suba excel con registros.
-                            </h3>
-                        </div>
+    <form class="" [formGroup]="formularioRegistros" *ngIf="formularioRegistros">
+        <div class="card-body">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeNavItem">
+                <li [ngbNavItem]="1">
+                    <button ngbNavLink>
+                        Subida de Excel
+                    </button>
+                    <ng-template ngbNavContent>
+                        <app-excel-upload tipoDeArchivo="registros"
+                            (onObtenerRegistros)="onObtenerRegistros($event)"></app-excel-upload>
                     </ng-template>
-                    
-                </ng-template>
-            </li>
-        </ul>
+                </li>
+                <li [ngbNavItem]="2">
+                    <button class="" ngbNavLink>
+                        Registros a cargar
+                    </button>
+                    <ng-template ngbNavContent>
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="button" class="btn btn-primary mr-4" (click)="firmar()">Firmar
+                                Archivos</button>
+                        </div>
+                        <app-registros *ngIf="registros; else noRegistros" [registros]="registros"
+                            [formularioRegistros]="formularioRegistros"
+                            (onFileChangeEvent)="onFileChangeEvent($event)"></app-registros>
+                        <ng-template #noRegistros>
+                            <div class="mt-4 mx-2 alert alert-warning">
+                                <h3>
+                                    Por favor suba excel con registros.
+                                </h3>
+                            </div>
+                        </ng-template>
+
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
         <div [ngbNavOutlet]="nav"></div>
     </form>
-
 </div>

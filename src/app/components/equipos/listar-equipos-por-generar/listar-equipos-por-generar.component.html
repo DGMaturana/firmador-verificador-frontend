@@ -1,0 +1,177 @@
+
+<div class="pt-1 px-4" *ngIf="(certificados && certificados.length && !loading)">
+    <div class="row">
+        <div class="col-md-5 col-sm-12">
+            <p class="fs-5">Certificados a generar: <span class="fw-bolder">{{certificados.length}}</span></p>
+        </div>
+        <div class="col-md-7">
+            <button class="btn btn-sm btn-primary float-end" (click)="generarCertificados()" [disabled]="loading">Generar Certificados</button>
+        </div>
+    </div>
+    <hr>
+    <div class="mb-4">
+        <span>Detalle: </span>
+        <div class="float-end">
+            <button class="btn btn-light" (click)="hideOrShowAll(true)">Ocultar todo</button>
+            <button class="btn btn-light" (click)="hideOrShowAll(false)">Expandir todo</button>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let certificado of certificados; index as i" class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+            <div class="mb-2 card">
+                <div class="card-header px-1 pointer" (click)="toggleHidden(i)">
+                    <button class="btn btn-link collapseButton" > <fa-icon [icon]="!certificado.hidden? caretUp : caretDown " ></fa-icon></button>
+                    <span class="fw-bold">Certificado N°: {{i+1}} </span>
+                    <span class="float-end px-2 registerCodeInHeader badge bg-secondary" > {{ certificado.numeroCertificado }}</span>
+                </div>
+                <div class="form-group  card-body" *ngIf="!certificado.hidden" >
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'numeroInformeAsociado'+i" class="mb-1">N° Informe Asociado</label>
+                            <div [id]="'numeroInformeAsociado°'+i" class="form-control mb-2" >
+                                {{ certificado.numeroInformeAsociado }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'empresaSolicitante'+i" class="mb-1">Empresa solicitante</label>
+                            <div [id]="'empresaSolicitante'+i" class="form-control mb-2" >
+                                {{ certificado.empresaSolicitante }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'tipoInspeccion'+i" class="mb-1">Tipo de Inspeccion</label>
+                            <div [id]="'tipoInspeccion'+i" class="form-control mb-2" >
+                                {{ certificado.tipoInspeccion }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'producto'+i" class="mb-1">Producto inspeccionado</label>
+                            <div [id]="'producto'+i" class="form-control mb-2" >
+                                {{ certificado.producto }}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <label [for]="'fechaInspeccion'+i" class="mb-1">Fecha de inspección</label>
+                            <div [id]="'fechaInspeccion'+i" class="form-control mb-2" >
+                                {{ certificado.fechaInspeccion | date: 'dd/MM/yyyy' }}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <label [for]="'fechaEmisionCertificado'+i" class="mb-1">Fecha de emisión</label>
+                            <div [id]="'fechaEmisionCertificado'+i" class="form-control mb-2" >
+                                {{ certificado.fechaEmisionCertificado | date: 'dd/MM/yyyy' }}
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <label [for]="'fechaVencimientoCertificado'+i" class="mb-1">Fecha de vencimiento</label>
+                            <div [id]="'fechaVencimientoCertificado'+i" class="form-control mb-2" >
+                                {{ certificado.fechaVencimientoCertificado | date: 'dd/MM/yyyy' }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'formato'+i" class="mb-1 fw-bold">Formato</label>
+                            <div [id]="'formato'+i" class="form-control mb-2" >
+                                {{ certificado.formato }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'resultado'+i" class="mb-1 fw-bold">Resultado</label>
+                            <div [id]="'resultado'+i" class="form-control mb-2 text-white"
+                            [ngClass]="{'bg-success': certificado.resultado === 'APROBADO', 'bg-danger': certificado.resultado === 'RECHAZADO'}"
+                            >
+                                {{ certificado.resultado }}
+                            </div> 
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'lugarInspeccion'+i" class="mb-1">Lugar de inspección</label>
+                            <div [id]="'lugarInspeccion'+i" class="form-control mb-2" >
+                                {{ certificado.lugarInspeccion }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'marcaEquipo'+i" class="mb-1">Marca Equipo</label>
+                            <div [id]="'marcaEquipo'+i" class="form-control mb-2" >
+                                {{ certificado.marcaEquipo }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'modeloEquipo'+i" class="mb-1">Modelo Equipo</label>
+                            <div [id]="'modeloEquipo'+i" class="form-control mb-2" >
+                                {{ certificado.modeloEquipo }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'marcaPluma'+i" class="mb-1">Marca Pluma</label>
+                            <div [id]="'marcaPluma'+i" class="form-control mb-2" >
+                                {{certificado.marcaPluma }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'modeloPluma'+i" class="mb-1">Modelo Pluma</label>
+                            <div [id]="'modeloPluma'+i" class="form-control mb-2" >
+                                {{certificado.modeloPluma }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'marcaProducto'+i" class="mb-1">Marca Producto</label>
+                            <div [id]="'marcaProducto'+i" class="form-control mb-2" >
+                                {{certificado.marcaProducto || "N/A" }} 
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'modeloProducto'+i" class="mb-1">Modelo Producto</label>
+                            <div [id]="'modeloProducto '+i" class="form-control mb-2" >
+                                {{ ( certificado.modeloProducto || "N/A" ) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'numeroSerie'+i" class="mb-1">N° de Serie Equipo</label>
+                            <div [id]="'numeroSerie'+i" class="form-control mb-2" >
+                                {{  certificado.numeroSerie  }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'numeroMotorEquipo'+i" class="mb-1">N° de Motor Equipo</label>
+                            <div [id]="'numeroMotorEquipo'+i" class="form-control mb-2" >
+                                {{ certificado.numeroMotorEquipo }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'numeroChasisEquipo'+i" class="mb-1">N° de Chasis Equipo</label>
+                            <div [id]="'numeroChasisEquipo'+i" class="form-control mb-2" >
+                                {{ certificado.numeroChasisEquipo }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'placaPatente'+i" class="mb-1">Placa Patente</label>
+                            <div [id]="'placaPatente'+i" class="form-control mb-2" >
+                                {{ certificado.placaPatente }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'anoFabricacion'+i" class="mb-1">Año de Fabricación Equipo</label>
+                            <div [id]="'anoFabricacion'+i" class="form-control mb-2" >
+                                {{ certificado.anoFabricacion }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'numeroInternoEquipo'+i" class="mb-1">N° Interno Equipo</label>
+                            <div [id]="'numeroInternoEquipo'+i" class="form-control mb-2" >
+                                {{ certificado.numeroInternoEquipo }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div *ngIf="loading && certificados && certificados.length">
+    <app-loading [title]="'Generando certificados...'"></app-loading>
+</div>
+
+ <ng-template #noCertificados *ngIf="!certificados || !certificados.length">
+    No hay certificados para generar, compruebe que subió excel correcto
+</ng-template>

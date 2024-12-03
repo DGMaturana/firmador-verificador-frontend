@@ -1,6 +1,6 @@
 .navbar{
     /* height: 2em; */
-    height: 7rem;
+    height: 6.5rem;
 }
 
 .logo{
@@ -9,4 +9,5 @@
     justify-self: center;
     position: relative;
     z-index: 2;
+    top: 5px;
 }

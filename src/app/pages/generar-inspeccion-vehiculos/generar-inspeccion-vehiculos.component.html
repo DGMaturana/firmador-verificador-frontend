@@ -1,0 +1,32 @@
+<div class="card bg-light">
+    <div class="card-header">
+        <h1 class="text-center pt-2">
+            Generar certificados equipos
+        </h1>
+    </div>
+    <div class="card-body">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeTab">
+            <li [ngbNavItem]="1">
+                <button ngbNavLink [disabled]="loading">
+                    Subida de Excel
+                </button>
+                <ng-template ngbNavContent>
+                    <app-excel-upload [loading]="loading" tipoDeArchivo="inspeccion-vehiculos"
+                        (onObtenerInspeccionVehiculos)="onObtenerCertificados($event)">
+                    </app-excel-upload>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2" [disabled]="!certificadosAGenerar.length" 
+            >
+                <button ngbNavLink>Certificados</button>
+                <ng-template ngbNavContent>
+                    <app-listar-equipos-por-generar
+                    [certificados]="certificadosAGenerar"
+                    (onGenerarCertificados)="onGenerarCertificados($event)">
+                    </app-listar-equipos-por-generar>
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+    <div [ngbNavOutlet]="nav"></div>
+</div>
