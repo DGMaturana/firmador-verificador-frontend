@@ -92,13 +92,19 @@
                         <div class="col-md-6 col-sm-12">
                             <label [for]="'marcaEquipo'+i" class="mb-1">Marca Equipo</label>
                             <div [id]="'marcaEquipo'+i" class="form-control mb-2" >
-                                {{ certificado.marcaEquipo }}
+                                {{ certificado.marcaEquipo || "N/A" }}
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label [for]="'modeloEquipo'+i" class="mb-1">Modelo Equipo</label>
                             <div [id]="'modeloEquipo'+i" class="form-control mb-2" >
-                                {{ certificado.modeloEquipo }}
+                                {{ certificado.modeloEquipo || "N/A" }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label [for]="'tipoEquipo'+i" class="mb-1">Tipo Equipo</label>
+                            <div [id]="'tipoEquipo'+i" class="form-control mb-2" >
+                                {{ certificado.tipoEquipo || "N/A" }}
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
