@@ -1,7 +1,7 @@
 <div class="card bg-light">
     <div class="card-header">
         <h1 class="text-center pt-2">
-            Generar certificados
+            Generar diplomas
         </h1>
     </div>
     <div class="card-body">
@@ -11,16 +11,21 @@
                     Subida de Excel
                 </button>
                 <ng-template ngbNavContent>
-                    <app-excel-upload [loading]="loading" tipoDeArchivo="certificados"
-                        (onObtenerCertificados)="onObtenerCertificados($event)">
+                    <app-excel-upload [loading]="loading" tipoDeArchivo="diplomas"
+                        (onObtenerDiplomas)="onObtenerDiplomas($event)">
                     </app-excel-upload>
                 </ng-template>
             </li>
-            <li [ngbNavItem]="2" [disabled]="!certificadosAGenerar || !certificadosAGenerar.length">
-                <button ngbNavLink>Certificados</button>
+            <li [ngbNavItem]="2" [disabled]="!diplomasPorGenerar.length" 
+            >
+                <button ngbNavLink>Diplomas</button>
                 <ng-template ngbNavContent>
-                    <app-listar-certificados [certificados]="certificadosAGenerar" [loading]="loading"
-                        (onGenerarCertificados)="generarCertificados($event)"></app-listar-certificados>
+                    <app-listar-diplomas-por-generar 
+                    [diplomas]="diplomasPorGenerar"
+                    [loading]="loading"
+                    (onGenerarDiplomas)="generarDiplomas($event)">
+                        
+                    </app-listar-diplomas-por-generar>
                 </ng-template>
             </li>
         </ul>

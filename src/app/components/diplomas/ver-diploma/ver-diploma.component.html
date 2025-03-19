@@ -1,0 +1,50 @@
+<div (click)="onCloseClick()">
+    <fa-icon [icon]="close" class="close-icon"></fa-icon>
+</div>
+<div *ngIf="diploma" class="container pb-5 justify-content-center" >
+    <h2 class="text-center my-4">
+        Diploma Válido
+    </h2>
+    <div [ngClass]="loading ? 'opacity-25 pt-4' : ' pt-4 d-flex' ">
+        <div class="row px-3 pb-1 ">
+            <div class="col-4 fw-bold text-justified">
+                Nombre:
+            </div>
+            <div class="col-8">
+                <p>{{diploma.nombre | titlecase }}</p>
+            </div>
+            <div class="col-4 fw-bold text-justified">
+                Rut: 
+            </div>
+            <div class="col-8">
+                <p>{{diploma.rut | titlecase }}</p>
+            </div>
+            <div class="col-4 fw-bold text-justified">
+                Curso:
+            </div>
+            <div class="col-8">
+                <p>{{diploma.curso | titlecase }}</p>
+            </div>
+            <div class="col-4 fw-bold text-justified">
+                Duración: 
+            </div>
+            <div class="col-8">
+                <p>{{diploma.duracion + " " }} horas cronológicas</p>
+            </div>
+            <div class="col-4 fw-bold text-justified">
+                Fecha:
+            </div>
+            <div class="col-8">
+                <p>{{diploma.fecha | date: "dd/MM/yyyy" }}</p>   
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-sm btn-success float-end me-5 mb-4"
+        (click)="descargarDiploma(diploma)"
+        [disabled]="loading">
+        <fa-icon [icon]="pdfIcon"></fa-icon> 
+        Descargar diploma
+        
+        </button>
+    <app-loading class="opacity-100" *ngIf="loading"></app-loading>
+</div>
