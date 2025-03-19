@@ -4,6 +4,8 @@ import { RegistrosService } from '../../services/registros.service';
 import { CertificadosService } from 'src/app/services/certificados.service';
 import Swal from 'sweetalert2';
 import { Certificado } from 'src/interfaces/Certificado';
+import { Diploma } from 'src/interfaces/Diploma';
+import { DiplomasService } from 'src/app/services/diplomas.service';
 @Component({
   selector: 'app-excel-upload',
   templateUrl: './excel-upload.component.html',
@@ -12,15 +14,17 @@ import { Certificado } from 'src/interfaces/Certificado';
 export class ExcelUploadComponent {
 
   @Input() form?: FormGroup;
-  @Input() tipoDeArchivo?: 'registros' | 'certificados' | 'inspeccion-vehiculos';
+  @Input() tipoDeArchivo?: 'registros' | 'certificados' | 'inspeccion-vehiculos'| 'diplomas';
   @Input() loading: boolean = false;;
   @Output() onObtenerRegistros = new EventEmitter();
   @Output() onObtenerCertificados: EventEmitter<{certificados: Certificado[], file: File}> = new EventEmitter();
   @Output() onObtenerInspeccionVehiculos = new EventEmitter();
+  @Output() onObtenerDiplomas: EventEmitter<{diplomas: Diploma[], file: File}>  = new EventEmitter();
   allowedExtensions: string[] = ['xls', 'xlsx'];
   constructor(
     private registroService: RegistrosService,
-    private certificadoService: CertificadosService
+    private certificadoService: CertificadosService,
+    private diplomaService: DiplomasService
   ) {}
 
   onChange(event: any) {
@@ -36,6 +40,10 @@ export class ExcelUploadComponent {
 
       case 'inspeccion-vehiculos':
         this.obtenerInspeccionVehiculos(event);
+        break;
+
+      case 'diplomas':
+        this.obtenerDiplomas(event);
         break;
 
       default:
@@ -85,6 +93,23 @@ export class ExcelUploadComponent {
            this.onObtenerInspeccionVehiculos.emit({registros, file});
         }
       }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async obtenerDiplomas($event: any){ 
+    try {
+      if (!$event?.target?.files?.length) {
+        throw new Error("No se ha seleccionado un archivo");
+      }
+      const file = $event.target.files[0];
+      const { diplomas } = await this.diplomaService.leerDiplomas(file);
+      if (!diplomas?.length) {
+        throw new Error("No se encontraron diplomas");
+      }
+      this.onObtenerDiplomas.emit({diplomas, file});
+
     } catch (error) {
       throw error;
     }
