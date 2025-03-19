@@ -32,6 +32,9 @@ import { AdminLayoutComponent } from './components/shared/admin-layout/admin-lay
 import { GenerarInspeccionVehiculosComponent } from './pages/generar-inspeccion-vehiculos/generar-inspeccion-vehiculos.component';
 import { ListarEquiposPorGenerarComponent } from './components/equipos/listar-equipos-por-generar/listar-equipos-por-generar.component';
 import { VerificarCertificadoEquipoComponent } from './components/equipos/verificar-certificado-equipo/verificar-certificado-equipo.component';
+import { GenerarDiplomasComponent } from './pages/generar-diplomas/generar-diplomas.component';
+import { ListarDiplomasPorGenerarComponent } from './components/diplomas/listar-diplomas-por-generar/listar-diplomas-por-generar.component';
+import { VerDiplomaComponent } from './components/diplomas/ver-diploma/ver-diploma.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,10 @@ import { VerificarCertificadoEquipoComponent } from './components/equipos/verifi
     AdminLayoutComponent,
     GenerarInspeccionVehiculosComponent,
     ListarEquiposPorGenerarComponent,
-    VerificarCertificadoEquipoComponent
+    VerificarCertificadoEquipoComponent,
+    GenerarDiplomasComponent,
+    ListarDiplomasPorGenerarComponent,
+    VerDiplomaComponent
   ],
   imports: [
     AppRoutingModule,

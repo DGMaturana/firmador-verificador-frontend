@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+  import { Component, computed, inject } from '@angular/core';
 import { saveAs } from 'file-saver-es';
 import { CertificadosService } from 'src/app/services/certificados.service';
 import { Certificado } from 'src/interfaces/Certificado';

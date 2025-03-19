@@ -4,8 +4,6 @@
 </div>
 
 <div *ngIf="certificado" class="container pb-5 justify-content-center" >
-
-
     <h2 class="text-center my-4">Certificado emitido</h2>
     <div [ngClass]="loading ? 'opacity-25 div pt-4' : 'div pt-4'">
 
@@ -59,7 +57,7 @@
                 Fecha de certificación:
             </div>
             <div class="col-8">
-                <p>{{certificado.fechaCertificacion | date: 'dd-MMM-y' }}</p>
+                <p>{{certificado.fechaCertificacion | date: 'dd-MM-yyyy' }}</p>
             </div>
         </div>
         <div class="row px-3 pb-1" *ngIf="certificado.formato === 'CR_CAP' || certificado.formato === 'JC_CAP' || certificado.formato === 'CR_CER' ">
@@ -67,7 +65,7 @@
                 Fecha de capacitación:
             </div>
             <div class="col-8">
-                <p>{{certificado.fechaCapacitacion | date: 'dd-MMM-y' }}</p>
+                <p>{{certificado.fechaCapacitacion | date: 'dd-MM-yyyy' }}</p>
             </div>
         </div>
         <div class="row px-3 pb-1">
@@ -75,7 +73,7 @@
                 Fecha de expiración:
             </div>
             <div class="col-8">
-                <p>{{certificado.fechaExpiracion | date: 'dd-MMM-y' }}</p>
+                <p>{{certificado.fechaExpiracion | date: 'dd-MMM-yyyy' }}</p>
             </div>
         </div>
 
