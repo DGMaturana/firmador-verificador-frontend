@@ -11,8 +11,8 @@
                     Subida de Excel
                 </button>
                 <ng-template ngbNavContent>
-                    <app-excel-upload [loading]="loading" tipoDeArchivo="inspeccion-vehiculos"
-                        (onObtenerInspeccionVehiculos)="onObtenerCertificados($event)">
+                    <app-excel-upload [loading]="loading" tipoDeArchivo="inspeccion-equipos-v2"
+                        (onObtenerInspeccionEquiposV2)="onObtenerCertificados($event)">
                     </app-excel-upload>
                 </ng-template>
             </li>
@@ -20,10 +20,10 @@
             >
                 <button ngbNavLink>Certificados</button>
                 <ng-template ngbNavContent>
-                    <app-listar-equipos-por-generar
+                    <app-listar-equipos-por-generar-v2
                     [certificados]="certificadosAGenerar"
                     (onGenerarCertificados)="onGenerarCertificados($event)">
-                    </app-listar-equipos-por-generar>
+                    </app-listar-equipos-por-generar-v2>
                 </ng-template>
             </li>
         </ul>

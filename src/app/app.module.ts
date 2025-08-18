@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http"
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +35,12 @@ import { VerificarCertificadoEquipoComponent } from './components/equipos/verifi
 import { GenerarDiplomasComponent } from './pages/generar-diplomas/generar-diplomas.component';
 import { ListarDiplomasPorGenerarComponent } from './components/diplomas/listar-diplomas-por-generar/listar-diplomas-por-generar.component';
 import { VerDiplomaComponent } from './components/diplomas/ver-diploma/ver-diploma.component';
+import { ListarEquiposPorGenerarV2Component } from './components/equipos/listar-equipos-por-generar-v2/listar-equipos-por-generar-v2.component';
+import { VerCertificadoEquiposV2Component } from './components/equipos/ver-certificado-equipos-v2/ver-certificado-equipos-v2.component';
+import localeES from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(localeES);
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,8 +71,10 @@ import { VerDiplomaComponent } from './components/diplomas/ver-diploma/ver-diplo
     VerificarCertificadoEquipoComponent,
     GenerarDiplomasComponent,
     ListarDiplomasPorGenerarComponent,
-    VerDiplomaComponent
-  ],
+    VerDiplomaComponent,
+    ListarEquiposPorGenerarV2Component,
+    VerCertificadoEquiposV2Component,
+    ],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -80,6 +87,9 @@ import { VerDiplomaComponent } from './components/diplomas/ver-diploma/ver-diplo
     provide: HTTP_INTERCEPTORS,
     useClass: BlobErrorHttpInterceptorService,
     multi: true
+  }, {
+    provide: LOCALE_ID,
+    useValue: 'es-ES'
   }],
   bootstrap: [AppComponent]
 })

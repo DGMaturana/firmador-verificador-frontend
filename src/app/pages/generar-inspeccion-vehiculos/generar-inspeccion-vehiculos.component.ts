@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CertificadosService } from 'src/app/services/certificados.service';
-import { CertificadoInspeccionVehiculo } from 'src/interfaces/Certificado';
+import { CertificadoInspeccionEquipoV2, CertificadoInspeccionVehiculo } from 'src/interfaces/Certificado';
 import { saveAs } from 'file-saver-es';
 import Swal from 'sweetalert2';
+import { CertificadoInspeccionVehiculoV2 } from '../../../../../firmador-verificador-server/interfaces/Certificado';
 
 @Component({
   selector: 'app-generar-inspeccion-vehiculos',
@@ -14,11 +15,21 @@ export class GenerarInspeccionVehiculosComponent {
   file?: File;
   isExcelLoading: boolean = false;
   loading: boolean = false;
-  certificadosAGenerar: CertificadoInspeccionVehiculo[] = [];
+  certificadosAGenerar: CertificadoInspeccionVehiculoV2[] = [];
 
   constructor(private certificadosService: CertificadosService) {}
 
   onObtenerCertificados($event: CertificadoInspeccionVehiculo | any) {
+    const { registros, file } = $event;
+    this.certificadosAGenerar = registros;
+    if (!this.certificadosAGenerar.length) {
+      return;
+    }
+    this.file = file;
+    this.activeTab = 2;
+  }
+
+  onObtenerCertificadosEquposV2($event: CertificadoInspeccionEquipoV2 | any ){
     const { registros, file } = $event;
     this.certificadosAGenerar = registros;
     if (!this.certificadosAGenerar.length) {
@@ -39,7 +50,7 @@ export class GenerarInspeccionVehiculosComponent {
       this.loading = true;
       Swal.showLoading();
       const response =
-        await this.certificadosService.generarCertificadoInspeccionVehiculos(
+        await this.certificadosService.generarCertificadosInspeccionEquipoV2(
           this.file
         );
       if (response) {
