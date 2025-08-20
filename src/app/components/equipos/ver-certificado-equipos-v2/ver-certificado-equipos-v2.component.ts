@@ -1,9 +1,9 @@
 import { saveAs } from 'file-saver-es';
 import { Component, Input, OnInit } from '@angular/core';
-import { CertificadoInspeccionVehiculoV2 } from '../../../../../../firmador-verificador-server/interfaces/Certificado';
 import { faClose, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CertificadosService } from 'src/app/services/certificados.service';
+import { CertificadoInspeccionEquipoV2 } from 'src/interfaces/Certificado';
 
 @Component({
   selector: 'app-ver-certificado-equipos-v2',
@@ -11,7 +11,7 @@ import { CertificadosService } from 'src/app/services/certificados.service';
   styleUrls: ['./ver-certificado-equipos-v2.component.css']
 })
 export class VerCertificadoEquiposV2Component implements OnInit {
-  @Input() certificadoEquipo?: CertificadoInspeccionVehiculoV2;
+  @Input() certificadoEquipo?: CertificadoInspeccionEquipoV2;
   loading: boolean = false;
   close = faClose;
   pdfIcon = faFilePdf;
@@ -33,7 +33,7 @@ export class VerCertificadoEquiposV2Component implements OnInit {
     this.modal.dismissAll()
   }
 
-  async descargarCertificadoEquipo(certificadoEquipo: CertificadoInspeccionVehiculoV2 ){
+  async descargarCertificadoEquipo(certificadoEquipo: CertificadoInspeccionEquipoV2 ){
     try {
       this.loading = true;
       const respuesta = await this.certificadoService.descargarCertificadoInspeccionEquipoV2(`${certificadoEquipo.codigo}-${certificadoEquipo.verificadorCodigo}`);
