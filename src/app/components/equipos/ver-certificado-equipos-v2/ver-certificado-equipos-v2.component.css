@@ -1,0 +1,8 @@
+.close-icon {
+    font-size: 2em;
+    position: absolute;
+    right: 1rem;
+}
+.close-icon:hover {
+    cursor: pointer;
+}

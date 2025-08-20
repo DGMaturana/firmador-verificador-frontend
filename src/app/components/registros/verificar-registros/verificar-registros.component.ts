@@ -15,6 +15,7 @@ import { VerCertificadoComponent } from '../../certificados/ver-certificado/ver-
 import { VerificarCertificadoEquipoComponent } from '../../equipos/verificar-certificado-equipo/verificar-certificado-equipo.component';
 import { DiplomasService } from 'src/app/services/diplomas.service';
 import { VerDiplomaComponent } from '../../diplomas/ver-diploma/ver-diploma.component';
+import { VerCertificadoEquiposV2Component } from '../../equipos/ver-certificado-equipos-v2/ver-certificado-equipos-v2.component';
 @Component({
   selector: 'app-verificar-registros',
   templateUrl: './verificar-registros.component.html',
@@ -53,6 +54,7 @@ export class VerificarRegistrosComponent implements OnInit {
       const codigoDividido = codigo.split('-');
       if (!codigo) throw 'Por favor ingrese código de registro.';
       const isEquipo = codigoDividido[0].toUpperCase() === "EQU";
+      const isEquipoV2 = codigoDividido[0].toUpperCase() === "MAQ";
       const isDiploma = codigoDividido[0].toUpperCase() === "DIP";
       const isCertificado = codigoDividido.length === 2 && codigoDividido.every((parte) => !_.isNaN(Number(parte)));
       if ( isEquipo ){
@@ -64,6 +66,18 @@ export class VerificarRegistrosComponent implements OnInit {
         });
         modal.componentInstance.certificadoEquipo = respuesta.certificado;
         this.loading = false
+        return;
+      }
+      if ( isEquipoV2 ) {
+        const respuesta = await this.certificadoService.verificarCertificadoInspeccionVehiculosV2(codigo)
+        if(!respuesta) throw "Código no válido";
+        const { certificado } = respuesta;
+        const modal = this.modalService.open(VerCertificadoEquiposV2Component, {
+          size: 'lg',
+          animation: true
+        })
+        modal.componentInstance.certificadoEquipo = certificado;
+        this.loading = false;
         return;
       }
       if ( isDiploma ){
@@ -93,6 +107,7 @@ export class VerificarRegistrosComponent implements OnInit {
         return;
 
       } 
+    
       const respuesta = await this.registrosService.verificarRegistro(codigo);
       if (!respuesta?.done) throw 'Código no válido.';
       const { registro } = respuesta;

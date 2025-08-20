@@ -55,6 +55,30 @@ export interface CertificadoInspeccionVehiculo {
 
 }
 
+export interface CertificadoInspeccionEquipoV2 {
+    codigo?: number;
+    verificadorCodigo?: number;
+    numeroCertificado: string;
+    numeroInformeAsociado: string;
+    tipoInspeccion: string;
+    tipoEquipo: string;
+    empresaSolicitante: string;
+    lugarInspeccion: string;
+    formato: FormatoInspeccionVehicularV2;
+    equipoInspeccionado: string;
+    capacidadEquipo: string;
+    numeroSerieEquipo: string;
+    numeroMotorEquipo: string;
+    numeroInternoEquipo: string;
+    placaPatenteEquipo: string;
+    anoFabricacion: string;
+    resultado: "APROBADO" | "RECHAZADO";
+    fechaInspeccion: Date;
+    fechaEmisionCertificado: Date;
+    fechaVencimientoCertificado: Date;
+    hidden?: boolean;
+}
+
 export enum Formato {
     FelixConchaCertificacion = "FC_CER", 
     CarlosRamosCapacitacion  = "CR_CAP", 
@@ -67,3 +91,8 @@ export enum Formato {
 }
 
 
+export enum FormatoInspeccionVehicularV2 {
+    CarlosRamosISI = "CR_ISI",
+    PedroRiveraISI = "PR_ISI",
+    GabrielOrtegaISI = "GO_ISI"
+}
