@@ -3,7 +3,6 @@ import { CertificadosService } from 'src/app/services/certificados.service';
 import { CertificadoInspeccionEquipoV2, CertificadoInspeccionVehiculo } from 'src/interfaces/Certificado';
 import { saveAs } from 'file-saver-es';
 import Swal from 'sweetalert2';
-import { CertificadoInspeccionVehiculoV2 } from '../../../../../firmador-verificador-server/interfaces/Certificado';
 
 @Component({
   selector: 'app-generar-inspeccion-vehiculos',
@@ -15,7 +14,7 @@ export class GenerarInspeccionVehiculosComponent {
   file?: File;
   isExcelLoading: boolean = false;
   loading: boolean = false;
-  certificadosAGenerar: CertificadoInspeccionVehiculoV2[] = [];
+  certificadosAGenerar: CertificadoInspeccionEquipoV2[] = [];
 
   constructor(private certificadosService: CertificadosService) {}
 
